@@ -28,21 +28,6 @@ ClassExample.prototype.selectedXform = function()
 ClassExample.prototype.defineCenter = function (x, y) {
     
     this.mCurrentObject = new ArmSegment(this.vmUseShader, "newShape", 0, 0);
-    var smallShape = new ArmSegment(this.vmUseShader, "newShape", 0, 0);
-    smallShape.getXform().setSize(.5,.5);
-    smallShape.getXform().setPosition(0,2.5);
-    this.mCurrentObject.addAsChild(smallShape);
-    /*
-    if (this.vmUseRandomColor) {
-        this.mCurrentObject.setColor([
-            Math.random(), Math.random(), Math.random(), 1]);
-        var i;
-        for (i = 0; i<4; i++) {
-            this.mCurrentObject.setVertexColor(i, 
-                [Math.random(), Math.random(), Math.random(), 1]);
-        }
-    }
-    */
     this.mAllObjects[0].addAsChild(this.mCurrentObject);
     var xf = this.mCurrentObject.getXform();
     xf.setPosition(x, y);
@@ -65,32 +50,8 @@ ClassExample.prototype.defineWidth = function (x, y) {
 // Update every object's destination
 ClassExample.prototype.defined = function () 
 {    
-//    // Determine 'overall size' of objects
-//    var numObjects = this.mAllObjects.length;
-//    var overallSize = 0;
-//    var i;
-//    for (i=0; i < numObjects; i++)
-//    {
-//        overallSize += this.mAllObjects[i].getXform().getWidth();
-//    }
-//    
-//    // Update first object first
-//    i = 0;
-//    var xf = this.mAllObjects[i].getXform();
-//    var xPos = (-overallSize/2); // Could be better
-//    var yPos = -20; // Arbitrary line
-//    xf.setDestination(xPos, yPos);
-//    var lastPosition = xPos;
-//    lastPosition += xf.getWidth()/2;
-//    
-//    // Update the rest of the objects
-//    for (i=1; i < numObjects; i++)
-//    {
-//        xf = this.mAllObjects[i].getXform();
-//        xPos = lastPosition + xf.getWidth()/2 + 2;
-//        xf.setDestination(xPos, yPos);
-//        lastPosition = xPos + xf.getWidth()/2;
-//    }
+    // Update "every" lists' children destinations
+    this.mAllObjects[0].updateListPos();
 };
 
 ClassExample.prototype.setConstShader = function() {

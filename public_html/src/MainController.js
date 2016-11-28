@@ -73,15 +73,18 @@ myModule.controller("MainCtrl", function ($scope) {
   
         } // check to see if the scale manipulator is being clicked
         else if($scope.checkClicks($scope.mMyWorld.mManipulatorScaling.getXform().getXPos(), 
-            $scope.mMyWorld.mManipulatorScaling.getXform().getYPos(), mWCX, mWCY)){ // clicking on the scale manipulator
+            $scope.mMyWorld.mManipulatorScaling.getXform().getYPos(), mWCX, mWCY))
+        { // clicking on the scale manipulator
             $scope.slectedTransform = "scale";
         } // check to see if the translate manipulator is being clicked
         else if($scope.checkClicks($scope.mMyWorld.mManipulatorTranslate.getXform().getXPos(), 
-            $scope.mMyWorld.mManipulatorTranslate.getXform().getYPos(), mWCX, mWCY)){
+            $scope.mMyWorld.mManipulatorTranslate.getXform().getYPos(), mWCX, mWCY))
+        {
             $scope.slectedTransform = "translate";
         } // check to see if the rotation manipulator is being clicked
         else if($scope.checkClicks($scope.mMyWorld.mManipulatorRotation.getXform().getXPos(), 
-            $scope.mMyWorld.mManipulatorRotation.getXform().getYPos(), mWCX, mWCY)){
+            $scope.mMyWorld.mManipulatorRotation.getXform().getYPos(), mWCX, mWCY))
+        {
             $scope.slectedTransform = "rotate";
         }
         
@@ -109,10 +112,13 @@ myModule.controller("MainCtrl", function ($scope) {
                     $scope.mView.mouseWCX($scope.mCanvasMouse.getPixelYPos(event)));
                 $scope.mForceRedraw = true;
             }
-            if ($scope.slectedTransform === "translate"){ // change the translation
+            if ($scope.slectedTransform === "translate")
+            { // change the translation
+                $scope.mMyWorld.currentObject().getXform().setDestination(mWCX, mWCY);
                 $scope.mMyWorld.currentObject().getXform().setPosition(mWCX, mWCY);
             }
-            if ($scope.slectedTransform === "rotate"){ // change the rotation
+            if ($scope.slectedTransform === "rotate")
+            { // change the rotation
                 $scope.mMyWorld.currentObject().getXform().setRotationInDegree(mWCX * 10);
             }
             break;

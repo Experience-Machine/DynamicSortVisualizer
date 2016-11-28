@@ -95,17 +95,6 @@ ClassExample.prototype.select = function(x, y)
                     obj.getXform().getYPos() + child.getXform().getYPos()*obj.getXform().getHeight());
                 cXform.setSize(obj.getXform().getWidth()*child.getXform().getWidth(), 
                                 obj.getXform().getHeight()*child.getXform().getHeight());
-            //console.log("Position[" + j + "]: " + child.getXform().getPosition());
-            for (var k = 0; k < child.mChildren.length; k++)
-            {
-                var grandChild = child.mChildren[k];
-                if(grandChild.containsPointOffset(x, y, cXform))
-                {
-                    this.mCurrentObject = grandChild;
-                    this.mSelectedXform = cXform;
-                    return true;
-                }
-            }
             if(child.containsPointOffset(x, y, obj.getXform()))
             {
                 this.mCurrentObject = child;

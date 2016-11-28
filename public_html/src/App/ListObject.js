@@ -20,9 +20,9 @@ function ListObject(shader, name, xPivot, yPivot)
 
 gEngine.Core.inheritPrototype(ListObject, SceneNode);
 
-ListObject.prototype.update = function()
+ListObject.prototype.updateListPos = function()
 {
-        // Determine 'overall size' of objects
+    // Determine 'overall size' of objects
     if (this.mChildren.length > 0)
     {
         var numObjects = this.mChildren.length;
@@ -50,9 +50,15 @@ ListObject.prototype.update = function()
             xf.setDestination(xPos, yPos);
             lastPosition = xPos + xf.getWidth()/2;
         }
-        for (var i=0; i<this.mChildren.length; i++)
-        {
-            this.mChildren[i].update();
-        }
     }
-}
+};
+
+ListObject.prototype.update = function()
+{
+    Object.getPrototypeOf(ListObject.prototype).update.call(this);
+    
+    for (var i=0; i<this.mChildren.length; i++)
+    {
+        this.mChildren[i].update();
+    }
+};
