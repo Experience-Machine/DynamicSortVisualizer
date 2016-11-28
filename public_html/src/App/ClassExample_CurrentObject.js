@@ -14,6 +14,8 @@ ClassExample.prototype.update = function ()
     var i;
     for (i=0; i<this.mAllObjects.length; i++)
         this.mAllObjects[i].update();
+    for (i=0; i<this.mLists.length; i++)
+        this.mLists[i].update();
 };
 
 ClassExample.prototype.currentObject = function () {
@@ -28,10 +30,11 @@ ClassExample.prototype.selectedXform = function()
 ClassExample.prototype.defineCenter = function (x, y) {
     
     this.mCurrentObject = new ArmSegment(this.vmUseShader, "newShape", 0, 0);
-    this.mAllObjects[0].addAsChild(this.mCurrentObject);
+    this.mLists[this.mActiveList].addAsChild(this.mCurrentObject);
+    var parentXf = this.mLists[this.mActiveList].getXform();
     var xf = this.mCurrentObject.getXform();
-    xf.setPosition(x, y);
-    xf.setDestination(x, y);
+    xf.setPosition(x - parentXf.getXPos(), y - parentXf.getYPos());
+    xf.setDestination(x - parentXf.getXPos(), y - parentXf.getYPos());
     xf.setSize(2, 2);
     
     if (this.mCurrentObject.setFileTexture !== undefined)
@@ -51,10 +54,13 @@ ClassExample.prototype.defineWidth = function (x, y) {
 ClassExample.prototype.defined = function () 
 {    
     // Determine "every" lists' children indicies
-    this.mAllObjects[0].determineIndices();
+    var i;
+    for (i=0; i<this.mLists.length; i++)
+        this.mLists[i].determineIndices();
     
     // Update "every" lists' children destinations
-    this.mAllObjects[0].updateListPos();
+    for (i=0; i<this.mLists.length; i++)
+        this.mLists[i].updateListPos();
 };
 
 ClassExample.prototype.setConstShader = function() {

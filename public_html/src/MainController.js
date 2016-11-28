@@ -114,8 +114,9 @@ myModule.controller("MainCtrl", function ($scope) {
             }
             if ($scope.slectedTransform === "translate")
             { // change the translation
-                $scope.mMyWorld.currentObject().getXform().setDestination(mWCX, mWCY);
-                $scope.mMyWorld.currentObject().getXform().setPosition(mWCX, mWCY);
+                var listXform = $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].getXform();
+                $scope.mMyWorld.currentObject().getXform().setDestination(mWCX - listXform.getXPos(), mWCY - listXform.getYPos());
+                $scope.mMyWorld.currentObject().getXform().setPosition(mWCX - listXform.getXPos(), mWCY - listXform.getYPos());
             }
             if ($scope.slectedTransform === "rotate")
             { // change the rotation

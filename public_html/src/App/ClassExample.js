@@ -32,10 +32,12 @@ function ClassExample() {
     this.mCurrentObject.getXform().setDestination(0,0);
     
     this.mAllObjects = [];
+    this.mLists = [];
+    this.mActiveList = 0; // List 0
     
     this.vmUseRandomColor = false;
     this.setConstShader();
-    this.mAllObjects.push(new ListObject(this.mConstColorShader, "newList", 0,0));
+    this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
     
     // draw the manipulators
     this.mManipulatorTranslate = new SquareRenderable(this.mConstColorShader);
@@ -68,6 +70,8 @@ ClassExample.prototype.draw = function (camera) {
     var i;
     for (i=0; i<this.mAllObjects.length; i++)
         this.mAllObjects[i].draw(camera);
+    for (i=0; i<this.mLists.length; i++)
+        this.mLists[i].draw(camera);
     
     // check to see if the manipulators sshould be drawn (after the arms)
     if (this.drawManipulator){ // draw the direct manipulator
@@ -79,14 +83,14 @@ ClassExample.prototype.draw = function (camera) {
     }
 };
 
-// Determine if any objects contain the point
+// Determine if any lists' objects contain the point
 // If they contain the point, they become selected
 ClassExample.prototype.select = function(x, y)
 {
     var i;
-    for (i=0; i<this.mAllObjects.length; i++)
+    for (i=0; i<this.mLists.length; i++)
     {
-        var obj = this.mAllObjects[i];
+        var obj = this.mLists[i];
         for (var j = 0; j < obj.mChildren.length; j++)
         {
             var child = obj.mChildren[j];
