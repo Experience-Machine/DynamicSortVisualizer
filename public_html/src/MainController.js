@@ -187,4 +187,10 @@ myModule.controller("MainCtrl", function ($scope) {
         console.log('Sort!');
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].activeSort();
     };
+    
+    $scope.stopSort = function(){
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSorting = false;
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSorted = false;
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortIndex = 0;
+    };
 });

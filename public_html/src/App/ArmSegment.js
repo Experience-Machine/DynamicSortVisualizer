@@ -19,11 +19,14 @@ function ArmSegment(shader, name, xPivot, yPivot)
     // now create the children shapes
     var obj = new SquareRenderable(shader);  // The blue shirt
     this.addToSet(obj);
-    obj.setColor([1, 0.5, 0, 1]);
+    obj.setColor([0, 0, 0, 1]);
     xf = obj.getXform();
     xf.setSize(1, 2);
     xf.setPosition(xPivot, yPivot);
  
+    // not sure if we want to keep this for something
+ 
+    /*
     obj = new SquareRenderable(shader);  // The yellow face
     this.addToSet(obj);
     obj.setColor([1 , 1, 0, 1]);
@@ -96,6 +99,7 @@ function ArmSegment(shader, name, xPivot, yPivot)
     
     this.mPulseRate = 0.005;
     this.mRotateRate = -10;
+    */
 }
 gEngine.Core.inheritPrototype(ArmSegment, SceneNode);
 
@@ -103,6 +107,7 @@ ArmSegment.prototype.update = function ()
 {
     SceneNode.prototype.update.call(this);
     
+    /*
     var xf = this.getRenderableAt(4).getXform();
     xf.incRotationByDegree(-this.mRotateRate);
     
@@ -118,5 +123,5 @@ ArmSegment.prototype.update = function ()
     xf.incSizeBy(this.mPulseRate);
     if (xf.getWidth() > 0.7 || xf.getWidth() < 0.4)
         this.mPulseRate = -this.mPulseRate;
-    
+    */
 };

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example 8.3: Simple File Texture</title>
+        <title>Dynamic Sorting Visualizer</title>
         <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
 
         <!-- the following says there are javascript source code contained in 
@@ -56,7 +56,8 @@
     <div style="display: inline-block">
         <input type="file" 
            onchange="angular.element(this).scope().acceptFiles(event)">
-        <input type="button" value="Sort" ng-click="handleSort()">
+        <input type="button" value="Bubble Sort" ng-click="handleSort()">
+        <input type="button" value="Stop" ng-click="stopSort()">
     </div>
      <br>
         <canvas 
