@@ -14,6 +14,7 @@ function ArmSegment(shader, name, xPivot, yPivot)
 
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);
+    xf.setPosition(0, 0);
     
     // now create the children shapes
     var obj = new SquareRenderable(shader);  // The blue shirt

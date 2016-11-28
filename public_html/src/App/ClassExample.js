@@ -27,7 +27,7 @@ function ClassExample() {
     this.mCurrentObject = new ArmSegment(this.mConstColorShader, "newShape", 0, 0);
     this.mFileTexture = new FileTextureSupport("assets/minion_portal.png", true);
 
-    this.mCurrentObject.getXform().setPosition(20, 20);
+    this.mCurrentObject.getXform().setPosition(0, 0);
     this.mCurrentObject.getXform().setSize(20, 20);
     this.mCurrentObject.getXform().setDestination(0,0);
     

@@ -107,9 +107,7 @@ myModule.controller("MainCtrl", function ($scope) {
         switch (event.which) {
         case 1: // left
             if ($scope.slectedTransform === "scale"){ // change the scale
-                $scope.mMyWorld.defineWidth(
-                    $scope.mView.mouseWCX($scope.mCanvasMouse.getPixelXPos(event)),
-                    $scope.mView.mouseWCX($scope.mCanvasMouse.getPixelYPos(event)));
+                $scope.mMyWorld.defineWidth(mWCX,mWCY);
                 $scope.mForceRedraw = true;
             }
             if ($scope.slectedTransform === "translate")

@@ -42,10 +42,25 @@ ClassExample.prototype.defineCenter = function (x, y) {
 };
 
 // from center to current position is 1/2 of width
-ClassExample.prototype.defineWidth = function (x, y) {
+ClassExample.prototype.defineWidth = function (x, y) 
+{
+    var listXf = this.mLists[this.mActiveList].getXform();
     var xf = this.mCurrentObject.getXform();
-    var dx = Math.abs(x - xf.getXPos());
-    var dy = Math.abs(y - xf.getYPos());
+    var dx = Math.abs(x - (xf.getXPos() + listXf.getXPos()) );
+    var dy = Math.abs(y - (xf.getYPos() + listXf.getYPos()) );
+    
+    /*
+    console.log("WIDTH: ");
+    console.log("\tX: " + x);
+    console.log("\tY: " + y);
+    console.log("\txPos: " + xf.getXPos());
+    console.log("\tyPos: " + xf.getYPos());
+    console.log("\tListXPos: " + listXf.getXPos());
+    console.log("\tListYPos: " + listXf.getYPos());
+    console.log("\tDX: " + dx);
+    console.log("\tDY: " + dy);
+    */
+   
     xf.setSize(dx*2, dy*2);
 };
 

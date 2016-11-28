@@ -78,8 +78,8 @@ ListObject.prototype.update = function()
             console.log("Child[" + i + "] Pos: " + cXform.getXPos() + ", " + cXform.getYPos() + 
                         " Dest: " + cXform.getXDest() + ", " + cXform.getYDest());
                         */
-            if(cXform.getXPos() != cXform.getXDest() ||
-               cXform.getYPos() != cXform.getYDest())
+            if(cXform.getXPos() !== cXform.getXDest() ||
+               cXform.getYPos() !== cXform.getYDest())
             {
                 // Objects currently moving
                 //console.log("Moving..");
@@ -111,7 +111,7 @@ ListObject.prototype.initSort = function()
 {
     //console.log("Init Sort");
     
-    if(this.mSortType == "bubble")
+    if(this.mSortType === "bubble")
     {
         this.mSortIndex = 0;
         this.mSorted = true; // This is set to false on swap
@@ -123,7 +123,7 @@ ListObject.prototype.initSort = function()
 //  and the program is ready for the next sort step
 ListObject.prototype.sortStep = function()
 {
-    if(this.mSortType == "bubble")
+    if(this.mSortType === "bubble")
     {
         this.bubbleSortStep();
     }
