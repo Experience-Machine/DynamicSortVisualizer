@@ -46,10 +46,13 @@ ClassExample.prototype.defineWidth = function (x, y) {
     xf.setSize(dx*2, dy*2);
 };
 
-// Called when a shape is finalized
+// Called when a shape is finalized or moved
 // Update every object's destination
 ClassExample.prototype.defined = function () 
 {    
+    // Determine "every" lists' children indicies
+    this.mAllObjects[0].determineIndices();
+    
     // Update "every" lists' children destinations
     this.mAllObjects[0].updateListPos();
 };

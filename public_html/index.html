@@ -54,20 +54,10 @@
                timeron="true"
                callback="mainTimerHandler"></css-timer>
                
-    <br>
-    <css-xform model="mSelectedXform" callback="redrawWorld" update="mForceRedraw"> </css-xform>    
+    <br>  
     <div style="display: inline-block">
         <input type="file" 
            onchange="angular.element(this).scope().acceptFiles(event)">
-        <br>
-        Random Color:<input type="checkbox" ng-model="mMyWorld.vmUseRandomColor">
-        <br>
-        <label ng-repeat="myLabel in mUseShader">
-            {{myLabel.label}}:<input type="radio"
-                                      ng-model="$parent.mSelectedShader"
-                                      ng-click="selectShader()"
-                                      value="{{myLabel.value}}"> &nbsp;&nbsp;
-        </label>
     </div>
      <br>
         <canvas 

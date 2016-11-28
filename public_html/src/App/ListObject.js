@@ -62,3 +62,10 @@ ListObject.prototype.update = function()
         this.mChildren[i].update();
     }
 };
+
+ListObject.prototype.determineIndices = function()
+{
+    this.mChildren.sort(function(a, b) { 
+        return a.getXform().getXPos() - b.getXform().getXPos();
+    });
+};
