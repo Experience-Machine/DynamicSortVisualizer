@@ -52,12 +52,11 @@
     <css-timer id="idMainControllerTimer"
                interval="40"
                timeron="true"
-               callback="mainTimerHandler"></css-timer>
-               
-    <br>  
+               callback="mainTimerHandler"></css-timer> 
     <div style="display: inline-block">
         <input type="file" 
            onchange="angular.element(this).scope().acceptFiles(event)">
+        <input type="button" value="Sort" ng-click="handleSort()">
     </div>
      <br>
         <canvas 

@@ -94,4 +94,9 @@ Transform.prototype.getXform = function () {
 
     return matrix;
 };
+
+Transform.prototype.area = function()
+{
+    return this.mScale[0] * this.mScale[1];
+};
 //</editor-fold>

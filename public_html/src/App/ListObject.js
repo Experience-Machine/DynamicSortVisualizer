@@ -14,6 +14,12 @@ function ListObject(shader, name, xPivot, yPivot)
 {
     SceneNode.call(this, shader, name, true);
     
+    this.mSorting = false;
+    this.mSortType = "bubble";
+    
+    this.mSortIndex = 0;
+    this.mSorted = false;
+    
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);
 };
@@ -61,6 +67,29 @@ ListObject.prototype.update = function()
     {
         this.mChildren[i].update();
     }
+    
+    // This should be the LAST thing in update:
+    if(this.mSorting)
+    {
+        for (var i=0; i<this.mChildren.length; i++)
+        {
+            var cXform = this.mChildren[i].getXform();
+            /*
+            console.log("Child[" + i + "] Pos: " + cXform.getXPos() + ", " + cXform.getYPos() + 
+                        " Dest: " + cXform.getXDest() + ", " + cXform.getYDest());
+                        */
+            if(cXform.getXPos() != cXform.getXDest() ||
+               cXform.getYPos() != cXform.getYDest())
+            {
+                // Objects currently moving
+                //console.log("Moving..");
+                return;
+            }
+        }
+        
+        // Ready for next step!
+        this.sortStep();
+    }
 };
 
 ListObject.prototype.determineIndices = function()
@@ -68,4 +97,71 @@ ListObject.prototype.determineIndices = function()
     this.mChildren.sort(function(a, b) { 
         return a.getXform().getXPos() - b.getXform().getXPos();
     });
+};
+
+// This method is called when the 'sort' button is pressed, to initiate the sort
+ListObject.prototype.activeSort = function()
+{
+    this.mSorting = true;
+    this.initSort();
+};
+
+// Called when the sort button is pressed -- these are sort specific initilizations
+ListObject.prototype.initSort = function()
+{
+    //console.log("Init Sort");
+    
+    if(this.mSortType == "bubble")
+    {
+        this.mSortIndex = 0;
+        this.mSorted = true; // This is set to false on swap
+    }
+};
+
+// This is called once per 'step' of a sort. This means
+//  that all objects have reached their intended positions
+//  and the program is ready for the next sort step
+ListObject.prototype.sortStep = function()
+{
+    if(this.mSortType == "bubble")
+    {
+        this.bubbleSortStep();
+    }
+};
+
+// If our sort type is bubble sort, this is called once
+//  per sort step
+ListObject.prototype.bubbleSortStep = function()
+{
+    //console.log("Bubble Sort Step");
+    
+    // If we're at the final list item..
+    if(this.mSortIndex === this.mChildren.length - 1)
+    {
+        // Is sorted?
+        if(this.mSorted)
+        {
+            this.mSorting = false;
+        }
+        else // Restart bubble sort
+        {
+            this.mSortIndex = 0;
+            this.mSorted = true;
+        }
+        return;
+    }
+    
+    var left = this.mChildren[this.mSortIndex];
+    var right = this.mChildren[this.mSortIndex + 1];
+    
+    if(left.getXform().area() > right.getXform().area())
+    {
+        // Swap
+        this.mChildren[this.mSortIndex] = right;
+        this.mChildren[this.mSortIndex + 1] = left;
+        this.mSorted = false;
+        this.updateListPos();
+    }
+    
+    this.mSortIndex++;
 };

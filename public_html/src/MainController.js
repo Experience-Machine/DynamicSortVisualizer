@@ -183,4 +183,10 @@ myModule.controller("MainCtrl", function ($scope) {
        }
        return false;
     };
+    
+    $scope.handleSort = function()
+    {
+        console.log('Sort!');
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].activeSort();
+    };
 });
