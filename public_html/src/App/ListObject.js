@@ -15,7 +15,10 @@ function ListObject(shader, name, xPivot, yPivot)
     SceneNode.call(this, shader, name, true);
     
     this.mSorting = false;
-    this.mSortType = "bubble";
+    
+    // bubble = bubble sort - https://en.wikipedia.org/wiki/Bubble_sort
+    // selection = selection sort - https://en.wikipedia.org/wiki/Selection_sort
+    this.mSortType = "selection"; 
     
     this.mSortIndex = 0;
     this.mSorted = false;
@@ -116,6 +119,11 @@ ListObject.prototype.initSort = function()
         this.mSortIndex = 0;
         this.mSorted = true; // This is set to false on swap
     }
+    
+    if(this.mSortType === "selection"){
+        this.mSortIndex = 0;
+        this.mSorted = true;
+    }
 };
 
 // This is called once per 'step' of a sort. This means
@@ -126,6 +134,10 @@ ListObject.prototype.sortStep = function()
     if(this.mSortType === "bubble")
     {
         this.bubbleSortStep();
+    }
+    
+    if(this.mSortType === "selection"){
+        this.selectionSortStep();
     }
 };
 
@@ -160,6 +172,39 @@ ListObject.prototype.bubbleSortStep = function()
         this.mChildren[this.mSortIndex] = right;
         this.mChildren[this.mSortIndex + 1] = left;
         this.mSorted = false;
+        this.updateListPos();
+    }
+    
+    this.mSortIndex++;
+};
+
+// if the sort type is selection sort, called once per sort step
+ListObject.prototype.selectionSortStep = function(){
+      
+    var min = this.mChildren[this.mSortIndex].getXform().area(); // assume the first is the smallest
+    
+    var minPosition = 0; 
+   
+    var i;
+    
+    // got through the entire list to find the min
+    for (i = this.mSortIndex; i < this.mChildren.length; i++){
+        if (this.mChildren[i].getXform().area() < min){ // is it smaller than the current min
+            min = this.mChildren[i].getXform().area(); // set the new min
+            minPosition = i; // hold the position of the new min in the array
+        }
+    } // minPosition now holds the smallest
+
+    // time to swap
+    if (min !== this.mChildren[this.mSortIndex].getXform().area()){
+        var left = this.mChildren[this.mSortIndex];
+        var right = this.mChildren[minPosition];
+    
+        this.mChildren[this.mSortIndex] = right;
+        this.mChildren[minPosition] = left;
+    
+        this.mSorted = false;
+        
         this.updateListPos();
     }
     
