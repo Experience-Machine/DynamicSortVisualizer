@@ -10,7 +10,7 @@
 "use strict";
 
 // Creates the "backend" logical support for appMyExample
-var myModule = angular.module("appMyExample", ["CSS450Timer", "CSS450Slider", "CSS450Xform"]);
+var myModule = angular.module("appMyExample", ["ngMaterial", "CSS450Timer", "CSS450Slider", "CSS450Xform"]);
 
 // registers the constructor for the controller
 // NOTE: the constructor is only called _AFTER_ the </body> tag is encountered

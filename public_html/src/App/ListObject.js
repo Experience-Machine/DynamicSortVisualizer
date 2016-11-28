@@ -69,7 +69,7 @@ ListObject.prototype.update = function()
     }
     
     // This should be the LAST thing in update:
-    if(this.mSorting)
+    if(this.mSorting && this.mChildren.length > 0)
     {
         for (var i=0; i<this.mChildren.length; i++)
         {
