@@ -14,17 +14,17 @@ angular.module("CSS450Slider", [])
         return {
 
             template:  "\
-             <div style='border: 1px solid #00ff00;\
-                        display: inline-block'>\n\
-               {{mLabel}}\
-               <input type='range' min={{mMin}} max={{mMax}}\
-                      ng-change='sliderService()'\\n\
+               <md-slider-container>\
+                {{mLabel}}\
+                <md-slider min={{mMin}} max={{mMax}} ng-model='mModel' \
+                      ng-change='sliderService()'\
                       ng-mouseup='sliderService()'\
-                      ng-model='mModel'\
                       ng-disabled='!mActive'\
-                        >\
-               <input type='text' ng-model='mModel' size='1'>\
-             </div>",
+                      aria-label='slider'\
+                      class='md-primary'\n\
+                      style=''>\
+                </md-slider>\
+              </md-slider-container>",
                  // \n\ => 
                  //      "\n" <cr> in string
                  //      "\" escape the newline in editor
