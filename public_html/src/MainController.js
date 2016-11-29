@@ -192,7 +192,6 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.setMainViewPort = function ()
     {
-        console.log('Setting main viewport');
         $scope.mView.setWCWidth($scope.mainViewPortWidth);
         $scope.mView.setWCCenter($scope.mainViewPortX, $scope.mainViewPortY);
     };
