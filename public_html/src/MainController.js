@@ -32,6 +32,10 @@ myModule.controller("MainCtrl", function ($scope) {
          80,
          [0, 0, 800, 600]);
     
+    $scope.smallView = new Camera(
+         [0, -10],
+         80,
+         [700, 525, 100, 75]);
     $scope.mSelectedXform = $scope.mMyWorld.currentObject().getXform();
     $scope.mMyImagePath = null;
     
@@ -60,7 +64,9 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.mainTimerHandler = function () {
         $scope.mMyWorld.update();
         gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1]); // Clear the canvas
+        $scope.setSmallViewPort();
         $scope.mMyWorld.draw($scope.mView);
+        $scope.mMyWorld.draw($scope.smallView);
         $scope.handleManipulators(); // make sure it follows when using the sliders
     };
 
@@ -204,4 +210,9 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mView.setWCWidth($scope.mainViewPortWidth);
         $scope.mView.setWCCenter($scope.mainViewPortX, $scope.mainViewPortY);
     };
+    
+    $scope.setSmallViewPort = function ()
+    {
+        $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+    }
 });

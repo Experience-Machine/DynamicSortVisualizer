@@ -22,6 +22,7 @@ function ListObject(shader, name, xPivot, yPivot)
     
     this.mSortIndex = 0;
     this.mSorted = false;
+    this.width = 0;
     
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);
@@ -220,3 +221,15 @@ ListObject.prototype.selectionSortStep = function()
     
     this.mSortIndex++;
 };
+
+ListObject.prototype.getWidth = function()
+{
+        var numObjects = this.mChildren.length;
+        var overallSize = 0;
+        var i;
+        for (i=0; i < numObjects; i++)
+        {
+            overallSize += this.mChildren[i].getXform().getWidth();
+        }
+        return overallSize;
+}

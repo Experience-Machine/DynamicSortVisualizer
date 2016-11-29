@@ -118,3 +118,18 @@ ClassExample.prototype.select = function(x, y)
 
     return false;
 };
+
+ClassExample.prototype.getMaxWidth = function()
+{
+    var i = 0;
+    var maxWidth = 0;
+    
+    for (i; i < this.mLists.length; i++)
+    {
+        if (this.mLists[i].getWidth() > maxWidth)
+        {
+            maxWidth = this.mLists[i].getWidth();
+        }
+    }
+    return maxWidth;
+}
