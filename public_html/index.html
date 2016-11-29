@@ -8,8 +8,13 @@
              the external source files
         -->
         <!-- external library -->
-
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
         <script type="text/javascript" src="src/lib/webgl-obj-loader.js"></script>
@@ -55,13 +60,49 @@
                interval="40"
                timeron="true"
                callback="mainTimerHandler"></css-timer> 
-    <div style="display: inline-block">
-        <input type="file" 
-           onchange="angular.element(this).scope().acceptFiles(event)">
-        <input type="button" value="Bubble Sort" ng-click="handleSort()">
-        <input type="button" value="Stop" ng-click="stopSort()">
-    </div>
-     <br>
+    <!-- Texture loading button
+    <input type="file" 
+                   onchange="angular.element(this).scope().acceptFiles(event)">
+    -->
+    <nav style="float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;">
+        <table>
+            <tr><td>
+                    <b> List 1 </b>
+            </td></tr>
+            <tr><td>
+            Sort Type
+            </td></tr>
+            <tr><td>
+            <md-radio-group ng-model="mSelectedSort">
+                <md-radio-button ng-repeat="sortType in mSortOptions" ng-click="serviceSortChange(sortType)" value="{{sortType}}" class="md-primary">{{sortType}}</md-radio-button>
+            </md-radio-group>
+            </td></tr>
+            <tr><td>
+                <css-slider model="mainViewPortWidth" min="1" max="800" 
+        label="Width" callback="setMainViewPort"></css-slider>
+            </td></tr>
+            <tr><td>
+                <css-slider model="mainViewPortX" min="-100" max="100" 
+        label="CX" callback="setMainViewPort"></css-slider>
+            </td></tr>
+            <tr><td>
+                <css-slider model="mainViewPortY" min="-100" max="100" 
+        label="CY" callback="setMainViewPort"></css-slider>
+            </td></tr>
+            <tr><td> <!-- Last Element: Sort button -->
+                <md-button class="md-raised" value="Sort" ng-click="handleSort()">Sort</md-button>
+            </td></tr>
+        </table>
+    </nav>
+
+    <article style="
+    margin-left: 200px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;">
         <canvas 
             ng-mousemove="dragSquare($event)"
             ng-mousedown="defineSquare($event)"
@@ -71,11 +112,6 @@
             Your browser does not support the HTML5 canvas.
             <!-- this message will show only if WebGL clearing failed -->
         </canvas>
-            <css-slider model="mainViewPortWidth" min="1" max="800" 
-                label="Width" callback="setMainViewPort"></css-slider>
-            <css-slider model="mainViewPortX" min="-100" max="100" 
-                label="CX" callback="setMainViewPort"></css-slider>
-            <css-slider model="mainViewPortY" min="-100" max="100" 
-                label="CY" callback="setMainViewPort"></css-slider>
+    </article>
     </body>
 </html>

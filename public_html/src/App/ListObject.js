@@ -18,7 +18,7 @@ function ListObject(shader, name, xPivot, yPivot)
     
     // bubble = bubble sort - https://en.wikipedia.org/wiki/Bubble_sort
     // selection = selection sort - https://en.wikipedia.org/wiki/Selection_sort
-    this.mSortType = "selection"; 
+    this.mSortType = "bubble"; 
     
     this.mSortIndex = 0;
     this.mSorted = false;
@@ -105,6 +105,7 @@ ListObject.prototype.determineIndices = function()
 // This method is called when the 'sort' button is pressed, to initiate the sort
 ListObject.prototype.activeSort = function()
 {
+    console.log(this.mSortType + ' sort!');
     this.mSorting = true;
     this.initSort();
 };
@@ -120,7 +121,8 @@ ListObject.prototype.initSort = function()
         this.mSorted = true; // This is set to false on swap
     }
     
-    if(this.mSortType === "selection"){
+    if(this.mSortType === "selection")
+    {
         this.mSortIndex = 0;
         this.mSorted = true;
     }

@@ -10,7 +10,7 @@
 "use strict";
 
 // Creates the "backend" logical support for appMyExample
-var myModule = angular.module("appMyExample", ["CSS450Timer", "CSS450Slider", "CSS450Xform"]);
+var myModule = angular.module("appMyExample", ["ngMaterial","CSS450Timer", "CSS450Slider", "CSS450Xform"]);
 
 // registers the constructor for the controller
 // NOTE: the constructor is only called _AFTER_ the </body> tag is encountered
@@ -18,6 +18,10 @@ var myModule = angular.module("appMyExample", ["CSS450Timer", "CSS450Slider", "C
 myModule.controller("MainCtrl", function ($scope) {
     // Initialize the graphics system
     gEngine.Core.initializeWebGL('GLCanvas');
+    
+    $scope.mSelectedSort = "bubble";
+    $scope.mSortOptions = ["bubble", "selection", "merge", "bogo"];
+    
     $scope.mCanvasMouse = new CanvasMouseSupport('GLCanvas');
     $scope.mainViewPortWidth = 100;
     $scope.mainViewPortX = 0;
@@ -186,8 +190,13 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.handleSort = function()
     {
-        console.log('Sort!');
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].activeSort();
+    };
+    
+    $scope.serviceSortChange = function(toChangeTo)
+    {
+        $scope.mSelectedSort = toChangeTo;
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType = $scope.mSelectedSort;
     };
     
     $scope.setMainViewPort = function ()
