@@ -106,7 +106,6 @@ ListObject.prototype.determineIndices = function()
 // This method is called when the 'sort' button is pressed, to initiate the sort
 ListObject.prototype.activeSort = function()
 {
-    console.log(this.mSortType + ' sort!');
     this.mSorting = true;
     this.initSort();
 };

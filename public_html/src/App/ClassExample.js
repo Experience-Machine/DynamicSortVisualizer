@@ -132,4 +132,9 @@ ClassExample.prototype.getMaxWidth = function()
         }
     }
     return maxWidth;
-}
+};
+
+ClassExample.prototype.addList = function()
+{
+    this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
+};

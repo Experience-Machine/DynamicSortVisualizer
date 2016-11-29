@@ -22,6 +22,9 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.mSelectedSort = "bubble";
     $scope.mSortOptions = ["bubble", "selection", "merge", "bogo"];
     
+    $scope.mListOptions = [1];
+    $scope.mActiveList = 1;
+    
     $scope.mCanvasMouse = new CanvasMouseSupport('GLCanvas');
     $scope.mainViewPortWidth = 100;
     $scope.mainViewPortX = 0;
@@ -203,6 +206,22 @@ myModule.controller("MainCtrl", function ($scope) {
     {
         $scope.mSelectedSort = toChangeTo;
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType = $scope.mSelectedSort;
+    };
+    
+    $scope.serviceListSelect = function(item)
+    {
+        $scope.mMyWorld.mActiveList = item - 1;
+    };
+    
+    $scope.addNewList = function()
+    {
+        $scope.mMyWorld.addList();
+        //console.log("List Len: " + $scope.mListOptions.length);
+        //console.log("Before: " + $scope.mListOptions);
+        $scope.mListOptions.push($scope.mListOptions.length+1);
+        $scope.mActiveList = $scope.mListOptions.length;
+        $scope.mMyWorld.mActiveList = $scope.mActiveList - 1;
+        console.log("New List: " + $scope.mListOptions);
     };
     
     $scope.setMainViewPort = function ()
