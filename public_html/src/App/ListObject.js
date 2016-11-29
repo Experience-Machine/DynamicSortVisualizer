@@ -179,8 +179,16 @@ ListObject.prototype.bubbleSortStep = function()
 };
 
 // if the sort type is selection sort, called once per sort step
-ListObject.prototype.selectionSortStep = function(){
-      
+ListObject.prototype.selectionSortStep = function()
+{
+    // If we're out of the index, we've sorted the entire thing
+    if(this.mSortIndex === this.mChildren.length)
+    {
+        this.mSorted = true;
+        this.mSorting = false;
+        return;
+    }
+    
     var min = this.mChildren[this.mSortIndex].getXform().area(); // assume the first is the smallest
     
     var minPosition = 0; 
