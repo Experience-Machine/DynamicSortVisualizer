@@ -19,7 +19,9 @@ myModule.controller("MainCtrl", function ($scope) {
     // Initialize the graphics system
     gEngine.Core.initializeWebGL('GLCanvas');
     $scope.mCanvasMouse = new CanvasMouseSupport('GLCanvas');
-    
+    $scope.mainViewPortWidth = 100;
+    $scope.mainViewPortX = 0;
+    $scope.mainViewPortY = 0;
     $scope.mMyWorld = new ClassExample();
     $scope.mView = new Camera(
          [0, 0],
@@ -186,5 +188,12 @@ myModule.controller("MainCtrl", function ($scope) {
     {
         console.log('Sort!');
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].activeSort();
+    };
+    
+    $scope.setMainViewPort = function ()
+    {
+        console.log('Setting main viewport');
+        $scope.mView.setWCWidth($scope.mainViewPortWidth);
+        $scope.mView.setWCCenter($scope.mainViewPortX, $scope.mainViewPortY);
     };
 });

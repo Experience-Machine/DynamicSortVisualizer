@@ -75,6 +75,11 @@
             Your browser does not support the HTML5 canvas.
             <!-- this message will show only if WebGL clearing failed -->
         </canvas>
-
+            <css-slider model="mainViewPortWidth" min="1" max="800" 
+                label="Width" callback="setMainViewPort"></css-slider>
+            <css-slider model="mainViewPortX" min="-100" max="100" 
+                label="CX" callback="setMainViewPort"></css-slider>
+            <css-slider model="mainViewPortY" min="-100" max="100" 
+                label="CY" callback="setMainViewPort"></css-slider>
     </body>
 </html>
