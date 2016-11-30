@@ -103,8 +103,15 @@
                 <css-slider model="mainViewPortY" min="-100" max="100" 
         label="CY" callback="setMainViewPort"></css-slider>
             </td></tr>
+            <tr><td>
+                <css-slider model="movementSpeed" min="1" max="100" 
+        label="Movement Speed" callback=""></css-slider>
+            </td></tr>
             <tr><td> <!-- Last Element: Sort button -->
                 <md-button class="md-raised" value="Sort" ng-click="handleSort()">Sort</md-button>
+            </td></tr>
+            <tr><td> 
+                <md-button class="md-raised" value="Stop" ng-click="handleStop()">Stop</md-button>
             </td></tr>
         </table>
     </nav>

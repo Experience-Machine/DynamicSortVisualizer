@@ -29,6 +29,7 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.mainViewPortWidth = 100;
     $scope.mainViewPortX = 0;
     $scope.mainViewPortY = 0;
+    $scope.movementSpeed = 40;
     $scope.mMyWorld = new ClassExample();
     $scope.mView = new Camera(
          [0, 0],
@@ -237,5 +238,10 @@ myModule.controller("MainCtrl", function ($scope) {
             $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
         }
 
-    }
+    };
+    
+    $scope.handleStop = function()
+    {
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
+    };
 });

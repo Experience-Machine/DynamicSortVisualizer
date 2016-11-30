@@ -18,6 +18,8 @@ function ListObject(shader, name, xPivot, yPivot)
     
     // bubble = bubble sort - https://en.wikipedia.org/wiki/Bubble_sort
     // selection = selection sort - https://en.wikipedia.org/wiki/Selection_sort
+    // merge = 
+    // bogo = https://en.wikipedia.org/wiki/Bogosort
     this.mSortType = "bubble"; 
     
     this.mSortIndex = 0;
@@ -110,6 +112,14 @@ ListObject.prototype.activeSort = function()
     this.initSort();
 };
 
+// called when the stop button is pressed
+ListObject.prototype.stopSort = function()
+{
+    this.mSorting = false;
+    this.mSortIndex = 0;
+    this.mSorted = false;
+};
+
 // Called when the sort button is pressed -- these are sort specific initilizations
 ListObject.prototype.initSort = function()
 {
@@ -122,6 +132,12 @@ ListObject.prototype.initSort = function()
     }
     
     if(this.mSortType === "selection")
+    {
+        this.mSortIndex = 0;
+        this.mSorted = true;
+    }
+    
+    if(this.mSortType === "bogo")
     {
         this.mSortIndex = 0;
         this.mSorted = true;
@@ -140,6 +156,10 @@ ListObject.prototype.sortStep = function()
     
     if(this.mSortType === "selection"){
         this.selectionSortStep();
+    }
+    
+    if(this.mSortType === "bogo"){
+        this.selectionBogoStep();
     }
 };
 
@@ -221,6 +241,51 @@ ListObject.prototype.selectionSortStep = function()
     this.mSortIndex++;
 };
 
+ListObject.prototype.selectionBogoStep = function()
+{
+    // check to see if it is actually sorted
+    if (this.mChildren.length < 2)
+    {
+        this.mSorted = true;
+        this.mSorting = false;
+        return;
+    }   
+    var i;
+    var flag = false;
+    for (i = 0; i < this.mChildren.length - 1; i++)
+    {
+        // previous is larger
+        if (this.mChildren[i].getXform().area() > this.mChildren[i + 1].getXform().area())
+        {
+            flag = true;
+        }    
+    }    
+    if (flag)
+    {
+        this.mSorted = false;
+        this.mSorting = true;
+    }  else 
+    {
+        this.mSorted = true;
+        this.mSorting = false;
+        return;
+    }  
+    // stupid sort stuff
+    var randomFrom = Math.floor(Math.random() * (this.mChildren.length));
+    var randomTo = Math.floor(Math.random() * (this.mChildren.length));
+    
+    // swap
+    var left = this.mChildren[randomFrom];
+    var right = this.mChildren[randomTo];
+    
+    this.mChildren[randomFrom] = right;
+    this.mChildren[randomTo] = left;
+    
+    this.mSorted = false;
+        
+    this.updateListPos();
+};
+        
 ListObject.prototype.getWidth = function()
 {
         var numObjects = this.mChildren.length;
@@ -231,4 +296,4 @@ ListObject.prototype.getWidth = function()
             overallSize += this.mChildren[i].getXform().getWidth();
         }
         return overallSize;
-}
+};
