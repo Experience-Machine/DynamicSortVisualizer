@@ -36,8 +36,8 @@ myModule.controller("MainCtrl", function ($scope) {
          [0, 0, 800, 600]);
     
     $scope.smallView = new Camera(
-         [0, -10],
-         80,
+         [0, -20],
+         100,
          [700, 525, 100, 75]);
     $scope.mSelectedXform = $scope.mMyWorld.currentObject().getXform();
     $scope.mMyImagePath = null;
@@ -232,6 +232,10 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.setSmallViewPort = function ()
     {
-        $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+        if ($scope.mMyWorld.getMaxWidth() > 100)
+        {
+            $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+        }
+
     }
 });
