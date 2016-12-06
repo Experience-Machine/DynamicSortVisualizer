@@ -29,8 +29,9 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.mainViewPortWidth = 100;
     $scope.mainViewPortX = 0;
     $scope.mainViewPortY = 0;
-    $scope.movementSpeed = 40;
+
     $scope.mMyWorld = new ClassExample();
+    $scope.mMyWorld.speedOfSquares = $scope.movementSpeed;
     $scope.mView = new Camera(
          [0, 0],
          80,

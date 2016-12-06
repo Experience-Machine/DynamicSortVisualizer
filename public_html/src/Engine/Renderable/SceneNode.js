@@ -167,36 +167,43 @@ SceneNode.prototype.draw = function (aCamera, parentMat) {
 
 SceneNode.prototype.update = function () 
 {
+    
     var xf = this.getXform();
+    
+    var barSetting = document.getElementById("speed").value; // value of the slider bar
+    var movementSpeed = (parseInt(barSetting, 10)) / 10; // so that 10 equals 1 per update
+     
+    // handle Y direction movement
     if(xf.getYPos() !== xf.getYDest())
     {
         if(xf.getYPos() > xf.getYDest())
         {
-            xf.incYPosBy(-1);
+            xf.incYPosBy(-movementSpeed);
         }
         else
         {
-            xf.incYPosBy(1);
+            xf.incYPosBy(movementSpeed);
         }
         
-        if(Math.abs(xf.getYPos() - xf.getYDest()) < 1)
+        if(Math.abs(xf.getYPos() - xf.getYDest()) < movementSpeed)
         {
             xf.setYPos(xf.getYDest());
         }
     }
-    
-    if(xf.getXPos() !== xf.getXDest())
+
+    // handle X direction movement
+    if(xf.getXPos() !== xf.getXDest()) 
     {
         if(xf.getXPos() > xf.getXDest())
         {
-            xf.incXPosBy(-1);
+            xf.incXPosBy(-movementSpeed);
         }
         else
         {
-            xf.incXPosBy(1);
+            xf.incXPosBy(movementSpeed);
         }
         
-        if(Math.abs(xf.getXPos() - xf.getXDest()) < 1)
+        if(Math.abs(xf.getXPos() - xf.getXDest()) < movementSpeed)
         {
             xf.setXPos(xf.getXDest());
         }
