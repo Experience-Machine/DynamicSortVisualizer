@@ -31,7 +31,7 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.mainViewPortY = 0;
 
     $scope.mMyWorld = new ClassExample();
-    $scope.mMyWorld.speedOfSquares = $scope.movementSpeed;
+    $scope.movementSpeed = 10;
     $scope.mView = new Camera(
          [0, 0],
          80,
@@ -245,4 +245,10 @@ myModule.controller("MainCtrl", function ($scope) {
     {
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
     };
+    
+    $scope.changeSpeed = function()
+    {
+        $scope.mMyWorld.changeSpeed($scope.movementSpeed/10);
+    };
+    $scope.changeSpeed();
 });

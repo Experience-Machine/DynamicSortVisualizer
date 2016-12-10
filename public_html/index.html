@@ -104,7 +104,9 @@
         label="CY" callback="setMainViewPort"></css-slider>
             </td></tr>
             <tr><td>
-                <input id="speed" type="range" min="1" max="40" value="10" step="" />
+                <!--<input id="speed" type="range" min="1" max="40" value="10" step="" /> -->
+                <css-slider model="movementSpeed" min="1" max="40" 
+                    label="Speed" callback="changeSpeed"></css-slider>
             </td></tr>
             <tr><td> <!-- Last Element: Sort button -->
                 <md-button class="md-raised" value="Sort" ng-click="handleSort()">Sort</md-button>

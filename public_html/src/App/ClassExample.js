@@ -142,3 +142,12 @@ ClassExample.prototype.addList = function()
 {
     this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
 };
+
+ClassExample.prototype.changeSpeed = function(speed)
+{
+    this.moveSpeed = speed;
+    for (var i = 0; i < this.mLists.length; i++)
+    {
+        this.mLists[i].changeMovementSpeed(this.moveSpeed);
+    }
+};

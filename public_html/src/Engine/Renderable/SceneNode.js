@@ -15,6 +15,7 @@ function SceneNode(shader, name, drawPivot) {
     this.mSet = [];
     this.mChildren = [];
     this.mXform = new PivotedTransform();
+    this.movementSpeed = 1;
 
     // this is for debugging only: for drawing the pivot position
     this.mPivotPos = null;
@@ -138,6 +139,26 @@ SceneNode.prototype.getChildAt = function (index) {
     return this.mChildren[index];
 };
 
+SceneNode.prototype.changeMovementSpeed = function (m) 
+{
+    this.movementSpeed = m;
+    for(var i = 0; i < this.mSet.length; i++)
+    {
+        if(this.mSet[i].changeMovementSpeed)
+        {
+            this.mSet[i].changeMovementSpeed(m);
+        }
+    }
+    
+    for(var i = 0; i < this.mChildren.length; i++)
+    {
+        if(this.mChildren[i].changeMovementSpeed)
+        {
+            this.mChildren[i].changeMovementSpeed(m);
+        }
+    }
+};
+
 SceneNode.prototype.draw = function (aCamera, parentMat) {
     var i;
     var xfMat = this.mXform.getXform();
@@ -170,22 +191,22 @@ SceneNode.prototype.update = function ()
     
     var xf = this.getXform();
     
-    var barSetting = document.getElementById("speed").value; // value of the slider bar
-    var movementSpeed = (parseInt(barSetting, 10)) / 10; // so that 10 equals 1 per update
-     
+    //var barSetting = document.getElementById("speed").value; // value of the slider bar
+    //var movementSpeed = this.movementSpeed / 10; // so that 10 equals 1 per update
+
     // handle Y direction movement
     if(xf.getYPos() !== xf.getYDest())
     {
         if(xf.getYPos() > xf.getYDest())
         {
-            xf.incYPosBy(-movementSpeed);
+            xf.incYPosBy(-this.movementSpeed);
         }
         else
         {
-            xf.incYPosBy(movementSpeed);
+            xf.incYPosBy(this.movementSpeed);
         }
         
-        if(Math.abs(xf.getYPos() - xf.getYDest()) < movementSpeed)
+        if(Math.abs(xf.getYPos() - xf.getYDest()) < this.movementSpeed)
         {
             xf.setYPos(xf.getYDest());
         }
@@ -196,14 +217,14 @@ SceneNode.prototype.update = function ()
     {
         if(xf.getXPos() > xf.getXDest())
         {
-            xf.incXPosBy(-movementSpeed);
+            xf.incXPosBy(-this.movementSpeed);
         }
         else
         {
-            xf.incXPosBy(movementSpeed);
+            xf.incXPosBy(this.movementSpeed);
         }
         
-        if(Math.abs(xf.getXPos() - xf.getXDest()) < movementSpeed)
+        if(Math.abs(xf.getXPos() - xf.getXDest()) < this.movementSpeed)
         {
             xf.setXPos(xf.getXDest());
         }
