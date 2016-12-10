@@ -36,6 +36,7 @@ ClassExample.prototype.defineCenter = function (x, y) {
     xf.setPosition(x - parentXf.getXPos(), y - parentXf.getYPos());
     xf.setDestination(x - parentXf.getXPos(), y - parentXf.getYPos());
     xf.setSize(2, 2);
+    this.mCurrentObject.changeMovementSpeed(this.moveSpeed);
     
     if (this.mCurrentObject.setFileTexture !== undefined)
         this.mCurrentObject.setFileTexture(this.mFileTexture);
