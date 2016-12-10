@@ -39,6 +39,9 @@ Renderable.prototype.setFileTexture = function (f) {
     this.mFileTexture = f;
 };
 
+Renderable.prototype.setShader = function (shader) {
+    this.mShader = shader;
+};
 
 Renderable.prototype.update = function () 
 {

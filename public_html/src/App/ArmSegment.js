@@ -8,7 +8,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function ArmSegment(shader, name, xPivot, yPivot, texture) 
+function ArmSegment(shader, name, xPivot, yPivot, texture, highlightShader) 
 {
     SceneNode.call(this, shader, name, true);   // calling super class constructor
 
@@ -16,8 +16,11 @@ function ArmSegment(shader, name, xPivot, yPivot, texture)
     xf.setPivot(xPivot, yPivot);
     xf.setPosition(0, 0);
     
+    this.texShader = shader;
+    this.highShader = highlightShader;
+    
     // now create the children shapes
-    var obj = new SquareRenderable(shader);
+    var obj = new SquareRenderable(this.texShader);
     this.addToSet(obj);
     obj.setColor([0, 0, 0, 1]);
     obj.setFileTexture(texture);
@@ -27,6 +30,16 @@ function ArmSegment(shader, name, xPivot, yPivot, texture)
 };
 
 gEngine.Core.inheritPrototype(ArmSegment, SceneNode);
+
+ArmSegment.prototype.highlight = function () 
+{
+    this.mSet[0].setShader(this.highShader);
+};
+
+ArmSegment.prototype.unhighlight = function () 
+{
+    this.mSet[0].setShader(this.texShader);
+};
 
 ArmSegment.prototype.update = function () 
 {
