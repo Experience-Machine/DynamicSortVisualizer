@@ -24,8 +24,8 @@ function ClassExample() {
         "src/GLSLShaders/TextureVS.glsl",      // Path to the VertexShader 
         "src/GLSLShaders/TextureFS.glsl");    // Path to the simple FragmentShader
     
-    this.mCurrentObject = new ArmSegment(this.mConstColorShader, "newShape", 0, 0);
     this.mFileTexture = new FileTextureSupport("assets/minion_portal.png", true);
+    this.mCurrentObject = new ArmSegment(this.mFileTextureShader, "newShape", 0, 0, this.mFileTexture);
 
     this.mCurrentObject.getXform().setPosition(0, 0);
     this.mCurrentObject.getXform().setSize(20, 20);
@@ -36,7 +36,7 @@ function ClassExample() {
     this.mActiveList = 0; // List 0
     
     this.vmUseRandomColor = false;
-    this.setConstShader();
+    this.setFileTextureShader();
     this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
     
     // draw the manipulators

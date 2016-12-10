@@ -34,3 +34,9 @@ FileTextureShader.prototype.activateShader = function (buf, pixelColor, vpMatrix
     gl.vertexAttribPointer(this.mShaderTextureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
     gl.uniform1i(this.mSamplerRef, 0); // <-- binds to texture unit 0
 };
+
+FileTextureShader.prototype.setVertexColor = function (colors) {
+    var gl = gEngine.Core.getGL();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.mColorBuffer);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));
+};
