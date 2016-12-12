@@ -223,7 +223,6 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mListOptions.push($scope.mListOptions.length+1);
         $scope.mActiveList = $scope.mListOptions.length;
         $scope.mMyWorld.mActiveList = $scope.mActiveList - 1;
-        console.log("New List: " + $scope.mListOptions);
     };
     
     $scope.setMainViewPort = function ()

@@ -74,9 +74,61 @@ ClassExample.prototype.defined = function ()
     for (i=0; i<this.mLists.length; i++)
         this.mLists[i].determineIndices();
     
+    // Vertical Positions
+    // Update every lists' destination
+    this.updateVertListDests();
+    
+    // Horizontal Positions
     // Update "every" lists' children destinations
     for (i=0; i<this.mLists.length; i++)
         this.mLists[i].updateListPos();
+};
+
+// This belongs in ListObject (is here for merge errors)
+ClassExample.prototype.updateVertListDests = function() 
+{
+    var listHeights = [];
+    var totalHeight = 0;
+    var i = 0;
+    for (i=0; i<this.mLists.length; i++)
+    {
+        var thisHeight = this.getListMaxHeight(this.mLists[i]);
+        listHeights.push(thisHeight);
+        totalHeight += thisHeight;
+    }
+
+    // Update first list first
+    i = 0;
+    var xf = this.mLists[i].getXform();
+    var xPos = 0; // Arbitrary line
+    var yPos = -10 + listHeights[i]; // Could be better
+    
+    xf.setDestination(xPos, yPos);
+    var lastPosition = yPos;
+    lastPosition += listHeights[i];
+
+    // Update the rest of the objects
+    for (i=1; i < listHeights.length; i++)
+    {
+        xf = this.mLists[i].getXform();
+        yPos = lastPosition + listHeights[i];
+        xf.setDestination(xPos, yPos);
+        lastPosition = yPos + listHeights[i];
+    }
+};
+
+// This also belongs in ListObject
+ClassExample.prototype.getListMaxHeight = function(list)
+{
+    var maxHeight = 0;
+    for (var i=0; i<list.mChildren.length; i++)
+    {
+        if(list.mChildren[i].getXform().getHeight() > maxHeight)
+        {
+            maxHeight = list.mChildren[i].getXform().getHeight();
+        }
+    }
+    return maxHeight;
 };
 
 ClassExample.prototype.setConstShader = function() {
