@@ -143,6 +143,38 @@ ClassExample.prototype.addList = function()
     this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
 };
 
+ClassExample.prototype.removeList = function(index)
+{
+    this.mLists.splice(index, 1);
+};
+
+ClassExample.prototype.clearList = function(index)
+{
+    while(this.mLists[index].mChildren.length > 0)
+    {
+        this.mLists[index].mChildren.pop();
+    }
+};
+
+ClassExample.prototype.copyList = function(index)
+{
+    var returnList = new ListObject(this.mConstColorShader, "newList", 0,0);
+    for(var i = 0; i < this.mLists[index].mChildren.length; i++)
+    {
+        var addRenderable = new ArmSegment(this.mFileTextureShader, "newShape", 0, 0, this.mFileTexture, this.mHighlightTextureShader);
+        returnList.addAsChild(addRenderable);
+        var copyXf = this.mLists[index].mChildren[i].getXform();
+        var xf = addRenderable.getXform();
+        xf.setPosition(copyXf.getXPos(), copyXf.getYPos());
+        xf.setSize(copyXf.getWidth(), copyXf.getHeight());
+        addRenderable.changeMovementSpeed(this.moveSpeed);
+    }
+    var copyListXf = this.mLists[index].getXform();
+    returnList.getXform().setPosition(copyListXf.getXPos(), copyListXf.getYPos());
+    
+    return returnList;
+};
+
 ClassExample.prototype.changeSpeed = function(speed)
 {
     this.moveSpeed = speed;

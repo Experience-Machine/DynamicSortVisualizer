@@ -27,8 +27,8 @@ ClassExample.prototype.selectedXform = function()
     return this.mSelectedXform;
 };
 
-ClassExample.prototype.defineCenter = function (x, y) {
-    
+ClassExample.prototype.defineCenter = function (x, y) 
+{
     this.mCurrentObject = new ArmSegment(this.mFileTextureShader, "newShape", 0, 0, this.mFileTexture, this.mHighlightTextureShader);
     this.mLists[this.mActiveList].addAsChild(this.mCurrentObject);
     var parentXf = this.mLists[this.mActiveList].getXform();

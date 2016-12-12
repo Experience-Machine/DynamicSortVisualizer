@@ -235,6 +235,31 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mSelectedSort = $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType;
     };
     
+    $scope.addRandomList = function()
+    {
+        //$scope.addNewList();
+        $scope.mMyWorld.clearList($scope.mMyWorld.mActiveList);
+        var listX = $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].getXform();
+        for(var i = 0; i < 8; i++) // 8 items in our list
+        {
+            var randWidth = Math.random()*3.5 + 1; // 4.5 is our max, 1.0 is our min
+            var randHeight = Math.random()*3.5 + 1; 
+            $scope.mMyWorld.defineCenter(listX.getXPos(),listX.getYPos());
+            $scope.mMyWorld.defineWidth(listX.getXPos()+randWidth, listX.getYPos()+randHeight);
+        }
+        $scope.mMyWorld.defined();
+    };
+    
+    $scope.duplicateList = function()
+    {
+        var dupListIndex = $scope.mMyWorld.mActiveList;
+        $scope.addNewList();
+        var newList = $scope.mMyWorld.copyList(dupListIndex);
+        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList] = newList;
+        
+        $scope.mMyWorld.defined();
+    };
+    
     $scope.setMainViewPort = function ()
     {
         $scope.mView.setWCWidth($scope.mainViewPortWidth);
