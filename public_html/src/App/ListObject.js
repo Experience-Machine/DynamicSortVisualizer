@@ -25,6 +25,11 @@ function ListObject(shader, name, xPivot, yPivot)
     this.mSortIndex = 0;
     this.mSorted = false;
     this.width = 0;
+    this.levelsOfMerge = 0; // keep track of how many times to re-merge
+    this.mergesDone = 1;
+    this.levels = 1;
+    this.target = 0;
+    this.compare = 0;
     
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);
@@ -142,6 +147,17 @@ ListObject.prototype.initSort = function()
         this.mSortIndex = 0;
         this.mSorted = true;
     }
+    
+    if(this.mSortType === "merge")
+    {
+        this.mSortIndex = 0;
+        this.levelsOfMerge = 0;
+        this.mergesDone = 1;
+        this.levels = 1;
+        this.target = 0;
+        this.compare = 0;
+        this.mSorted = true;
+    }
 };
 
 // This is called once per 'step' of a sort. This means
@@ -160,6 +176,10 @@ ListObject.prototype.sortStep = function()
     
     if(this.mSortType === "bogo"){
         this.selectionBogoStep();
+    }
+    
+    if(this.mSortType === "merge"){
+        this.selectionMergeStep();
     }
 };
 
@@ -285,6 +305,77 @@ ListObject.prototype.selectionBogoStep = function()
         
     this.updateListPos();
 };
+
+ListObject.prototype.selectionMergeStep = function()
+{
+    
+    // get how many times needed to merge back
+    if (this.mChildren.length % 2 === 0)
+    {
+        this.levelsOfMerge = Math.floor(this.mChildren.length / 2); // even length
+    } else 
+    {
+        this.levelsOfMerge = Math.ceil(this.mChildren.length / 2); // odd length
+    }
+        
+    // out of range so a level has been sorted
+    if (this.mSortIndex >= this.mChildren.length - 1)
+    {
+        this.mergesDone++; 
+        this.mSortIndex = 0;
+    }
+    
+    // merged as many times that should be required, so it should be sorted
+    if (this.mergesDone > this.levelsOfMerge)
+    {
+        this.mSorted = true;
+        this.mSorting = false;
+        alert("Done");
+        return;
+    }
+     
+    // levelsOfMerge - keep track of how many times to re-merge
+    // mergesDone - a way to figure out how big the chunk is
+    // levels - a pointer to move along the chunk that var right uses
+    // target - this is then end of the current chunk that is being compared
+    // compare - a pointer to move along the chunk that var left uses
+    // NOTE: a chunk is what is being merged [2, 5, 3, 4], so [2, 5] would be a chunk
+    // and [3, 4] would be the next chunk
+    
+    // find out how far to compare i.e. (2, 4, 5, 8) would have to compare from 2 to 8
+    this.target = (this.mergesDone * 2) - 1; 
+    
+    var left = this.mChildren[this.mSortIndex + this.compare];
+    var right = this.mChildren[this.mSortIndex + this.levels];
+    
+    if(left.getXform().area() > right.getXform().area())
+    {   
+        this.mChildren[this.mSortIndex + this.compare] = right;
+        this.mChildren[this.mSortIndex + this.levels] = left;
+    } 
+    
+    this.mSorted = false;
+    this.mSorting = true;
+    
+    this.updateListPos(); 
+    
+    this.levels++; // increment the pointer i.e. from 4 to 5 to 8
+    
+    if (this.levels > this.target) // is the pointer at the end?
+    {
+        if (this.compare < this.target) // has the left side been incremented as well?
+        {
+            this.compare++;
+            this.levels = this.compare; // so you dont compare backwords
+        } else // both are at the end so move to the next chunk
+        {
+            this.mSortIndex += 2;
+            this.levels = 1;
+            this.compare = 0;
+        }
+    }
+};
+
         
 ListObject.prototype.getWidth = function()
 {

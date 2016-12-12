@@ -190,9 +190,6 @@ SceneNode.prototype.update = function ()
 {
     
     var xf = this.getXform();
-    
-    //var barSetting = document.getElementById("speed").value; // value of the slider bar
-    //var movementSpeed = this.movementSpeed / 10; // so that 10 equals 1 per update
 
     // handle Y direction movement
     if(xf.getYPos() !== xf.getYDest())
