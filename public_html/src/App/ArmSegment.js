@@ -10,7 +10,7 @@
 
 function ArmSegment(shader, name, xPivot, yPivot, texture, highlightShader) 
 {
-    SceneNode.call(this, shader, name, true);   // calling super class constructor
+    SceneNode.call(this, shader, name, false);   // calling super class constructor
 
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);

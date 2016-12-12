@@ -12,7 +12,7 @@
 
 function ListObject(shader, name, xPivot, yPivot)
 {
-    SceneNode.call(this, shader, name, true);
+    SceneNode.call(this, shader, name, false);
     
     this.mSorting = false;
     

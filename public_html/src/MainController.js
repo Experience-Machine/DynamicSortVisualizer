@@ -204,6 +204,14 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].activeSort();
     };
     
+    $scope.handleSortAll = function()
+    {
+        for(var i = 0; i < $scope.mMyWorld.mLists.length; i++)
+        {
+            $scope.mMyWorld.mLists[i].activeSort();
+        }
+    };
+    
     $scope.serviceSortChange = function(toChangeTo)
     {
         $scope.mSelectedSort = toChangeTo;
@@ -213,6 +221,7 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.serviceListSelect = function(item)
     {
         $scope.mMyWorld.mActiveList = item - 1;
+        $scope.mSelectedSort = $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType;
     };
     
     $scope.addNewList = function()
@@ -223,6 +232,7 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mListOptions.push($scope.mListOptions.length+1);
         $scope.mActiveList = $scope.mListOptions.length;
         $scope.mMyWorld.mActiveList = $scope.mActiveList - 1;
+        $scope.mSelectedSort = $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType;
     };
     
     $scope.setMainViewPort = function ()
