@@ -330,7 +330,6 @@ ListObject.prototype.selectionMergeStep = function()
     {
         this.mSorted = true;
         this.mSorting = false;
-        alert("Done");
         return;
     }
      
@@ -360,6 +359,11 @@ ListObject.prototype.selectionMergeStep = function()
     this.updateListPos(); 
     
     this.levels++; // increment the pointer i.e. from 4 to 5 to 8
+    
+    if (this.mSortIndex + this.levels > this.mChildren.length - 1)
+    {
+        this.target = this.levels - 1;
+    }
     
     if (this.levels > this.target) // is the pointer at the end?
     {
