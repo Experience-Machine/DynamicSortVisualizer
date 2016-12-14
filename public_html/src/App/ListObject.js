@@ -369,11 +369,11 @@ ListObject.prototype.selectionMergeStep = function()
             this.levels = this.compare; // so you dont compare backwords
         } else // both are at the end so move to the next chunk
         {
-            this.mSortIndex += 2;
+            this.mSortIndex += 2 * this.mergesDone;
             this.levels = 1;
             this.compare = 0;
         }
-    }
+    } 
 };
 
         
