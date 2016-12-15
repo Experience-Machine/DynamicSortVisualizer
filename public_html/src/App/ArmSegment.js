@@ -53,7 +53,7 @@ ArmSegment.prototype.update = function ()
     
     // If at position, and min time, remove highlight
     if(xf.getXPos() === xf.getXDest() && xf.getYPos() === xf.getYDest()
-            && this.curHighlightTime > this.movementSpeed*16) // Highlight for 100 movement ticks
+            && this.curHighlightTime > this.minHighlightTime)
     {
         this.unhighlight();
         this.curHighlightTime = 0;
