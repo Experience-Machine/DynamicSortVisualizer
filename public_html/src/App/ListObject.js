@@ -31,6 +31,14 @@ function ListObject(shader, name, xPivot, yPivot)
     this.target = 0;
     this.compare = 0;
     
+    //Bunch of global variables to make quick sort work
+    this.quickSortPivot = 0;
+    this.quickSortStack = new Array();
+    this.quickSortSwaps;
+    this.quickSortHigh;
+    this.quickSortLow;
+    this.quickSortIndexLow;
+    
     var xf = this.getXform();
     xf.setPivot(xPivot, yPivot);
 };
@@ -161,6 +169,19 @@ ListObject.prototype.initSort = function()
         this.compare = 0;
         this.mSorted = true;
     }
+    
+    //Initial set up for quick sort, sets up the first partition to be sorted
+    if (this.mSortType === "quick")
+    {
+        this.mSortedIndex = 0;
+        this.mSorted = true;
+        this.quickSortLow = 0;
+        this.quickSortHigh = this.mChildren.length - 1;
+        
+        this.mSortIndex = this.quickSortLow;
+        this.quickSortIndexLow = this.quickSortLow - 1;
+        this.quickSortSwaps = this.quickSortHigh - this.quickSortLow;
+    }
 };
 
 // This is called once per 'step' of a sort. This means
@@ -183,6 +204,11 @@ ListObject.prototype.sortStep = function()
     
     if(this.mSortType === "merge"){
         this.selectionMergeStep();
+    }
+    
+    if(this.mSortType === "quick")
+    {
+        this.quickSortStep();
     }
 };
 
@@ -394,6 +420,83 @@ ListObject.prototype.selectionMergeStep = function()
     } 
 };
 
+ListObject.prototype.quickSortStep = function()
+{
+    
+    
+    //This section is arrived at after the part mimicking the partition function
+    //is called
+    if (this.quickSortSwaps < 0)
+    {
+    //    console.log("QuickSortStackSize" + this.quickSortStack.length);
+    //    console.log("QuickSortPivot:" + this.quickSortPivot)
+
+        //Pushes values of the partitions to the stack, looks at quick sort
+        //pivot and see if it's going to the left of the pivot or the right
+        //of the pivot, continue until the pivot isn't in bounds
+        if (this.quickSortPivot - 1 > this.quickSortLow)
+        {
+            
+            this.quickSortStack.push(this.quickSortLow);
+            this.quickSortStack.push(this.quickSortPivot - 1);
+        }
+
+        if (this.quickSortPivot + 1 < this.quickSortHigh)
+        {
+            this.quickSortStack.push(this.quickSortPivot + 1);
+            this.quickSortStack.push(this.quickSortHigh);
+        }
+
+        if (this.quickSortStack.length > 0)
+        {
+            //sets the next partition to be sorted
+            this.quickSortHigh = this.quickSortStack.pop();
+            this.quickSortLow = this.quickSortStack.pop();
+
+            this.mSortIndex = this.quickSortLow;
+            this.quickSortIndexLow = this.quickSortLow - 1;
+
+            this.quickSortSwaps = this.quickSortHigh - this.quickSortLow;
+        //    console.log("QuickSortSwaps =" + this.quickSortSwaps);
+
+        }
+    }
+    else
+    {
+        //This part functions as the "parition" function for a quick sort
+        var x = this.mChildren[this.quickSortHigh].getXform().area()
+
+
+        if (this.mSortIndex < this.quickSortHigh)
+        {
+
+            if (this.mChildren[this.mSortIndex].getXform().area() <= x)
+            {
+                
+                this.quickSortIndexLow++;
+                //Performs the swap
+                var temp = this.mChildren[this.quickSortIndexLow];
+                this.mChildren[this.quickSortIndexLow] = this.mChildren[this.mSortIndex];
+                this.mChildren[this.mSortIndex] = temp;
+
+            }
+            this.mSortIndex++;
+        }
+        else
+        {
+            //Performs the swap
+            var temp = this.mChildren[this.quickSortIndexLow + 1];
+            this.mChildren[this.quickSortIndexLow + 1] = this.mChildren[this.quickSortHigh];
+            this.mChildren[this.quickSortHigh] = temp;
+
+        }
+        //Decrements quickSortSwaps to determine if we're still in partition
+        //Resets the pivot every step, but we only need the last value
+        this.quickSortSwaps--;
+        this.quickSortPivot = this.quickSortIndexLow + 1;
+    }
+    this.updateListPos();
+};
         
 ListObject.prototype.getWidth = function()
 {
