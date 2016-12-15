@@ -20,6 +20,7 @@ function ArmSegment(shader, name, xPivot, yPivot, texture, highlightShader)
     this.highShader = highlightShader;
     this.highlighted = false;
     this.curHighlightTime = 0;
+    this.minHighlightTime = 16; // Arbitrary number
     
     // now create the children shapes
     var obj = new SquareRenderable(this.texShader);
