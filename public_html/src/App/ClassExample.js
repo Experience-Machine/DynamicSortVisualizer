@@ -28,7 +28,7 @@ function ClassExample() {
         "src/GLSLShaders/TextureVS.glsl",      // Path to the VertexShader 
         "src/GLSLShaders/HighlightTextureFS.glsl");    // Path to the simple FragmentShader
     
-    this.mFileTexture = new FileTextureSupport("assets/minion_portal.png", true);
+    this.mFileTexture = new FileTextureSupport("assets/rectangleIcon.png", true);
     this.mCurrentObject = new ArmSegment(this.mFileTextureShader, "newShape", 0, 0, this.mFileTexture, this.mHighlightTextureShader);
 
     this.mCurrentObject.getXform().setPosition(0, 0);
