@@ -269,9 +269,16 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.setSmallViewPort = function ()
     {
             var position = $scope.mMyWorld.getCenterList();
-            if ($scope.mMyWorld.getMaxWidth() > 100)
+            if ($scope.mMyWorld.getMaxWidth() > 100 || $scope.mMyWorld.getOverallHeight() * 1.5 > 75)
             {
-                $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+                if ($scope.mMyWorld.getMaxWidth() * 1.25 < $scope.mMyWorld.getOverallHeight() * 1.5)
+                {
+                    $scope.smallView.setWCWidth($scope.mMyWorld.getOverallHeight() * 1.5 * 1.25)
+                } else
+                {
+                    $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+                }
+                
             }
             
             $scope.smallView.setWCCenter(position[0], position[1] - 30);

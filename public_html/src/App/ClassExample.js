@@ -144,7 +144,7 @@ ClassExample.prototype.getOverallHeight = function()
     var totalHeight = 0;
     for (i; i < this.mLists.length; i++)
     {
-        totalHeight += this.mList[i].getHeight();
+        totalHeight += this.mLists[i].getHeight();
     }
     return totalHeight;
 }
@@ -161,7 +161,7 @@ ClassExample.prototype.getCenterList = function()
     }
     position[0] /= this.mLists.length;
     position[1] /= this.mLists.length;
-    console.log(position);
+    //console.log(position);
     return position;
 }
 
