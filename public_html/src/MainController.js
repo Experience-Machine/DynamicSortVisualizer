@@ -283,6 +283,11 @@ myModule.controller("MainCtrl", function ($scope) {
             
             $scope.smallView.setWCCenter(position[0], position[1] - 30);
             
+            if ($scope.mMyWorld.mLists.length === 0)
+            {
+                $scope.smallView.setWCCenter(0, -20);
+                $scope.smallView.setWCWidth(100);
+            }
     };
     
     $scope.handleStop = function()
@@ -290,6 +295,10 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
     };
     
+    $scope.handleClear = function ()
+    {
+        $scope.mMyWorld.clearAll();
+    };
     
     $scope.changeSpeed = function()
     {
