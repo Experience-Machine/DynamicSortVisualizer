@@ -463,11 +463,16 @@ ListObject.prototype.quickSortStep = function()
         //    console.log("QuickSortSwaps =" + this.quickSortSwaps);
 
         }
+        else // Sorted
+        {
+            this.mSorted = true;
+            this.mSorting = false;
+        }
     }
     else
     {
         //This part functions as the "parition" function for a quick sort
-        var x = this.mChildren[this.quickSortHigh].getXform().area()
+        var x = this.mChildren[this.quickSortHigh].getXform().area();
 
 
         if (this.mSortIndex < this.quickSortHigh)
