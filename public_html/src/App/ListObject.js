@@ -387,6 +387,9 @@ ListObject.prototype.selectionMergeStep = function()
     var left = this.mChildren[this.mSortIndex + this.compare];
     var right = this.mChildren[this.mSortIndex + this.levels];
     
+    left.highlight();
+    right.highlight();
+    
     if(left.getXform().area() > right.getXform().area())
     {   
         this.mChildren[this.mSortIndex + this.compare] = right;
