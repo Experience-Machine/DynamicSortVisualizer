@@ -125,14 +125,14 @@
         </table>
         <table>
             <tr><td> <!-- Last Element: Sort button -->
-                <md-button class="md-raised" value="Sort" ng-click="handleSort()" style="margin: 0px">Sort</md-button>
+                <md-button class="md-raised" value="Sort" ng-disabled="mIsSorted" ng-click="handleSort()" style="margin: 0px">Sort</md-button>
             </td><td>
-                <md-button class="md-raised" value="Sort" ng-click="handleSortAll()" style="margin: 0px">Sort All</md-button>
+                <md-button class="md-raised" value="Sort" ng-disabled="mIsSorted" ng-click="handleSortAll()" style="margin: 0px">Sort All</md-button>
             </td></tr>
             <tr><td> 
-                <md-button class="md-raised" value="Stop" ng-click="handleStop()" style="margin: 0px">Stop</md-button>
+                <md-button class="md-raised" value="Stop" ng-disabled="!mIsSorted" ng-click="handleStop()" style="margin: 0px">Stop</md-button>
             </td><td>
-                <md-button class="md-raised" value="Sort" ng-click="handleClear()" style="margin: 0px">Clear All</md-button>
+                <md-button class="md-raised" value="Clear" ng-click="handleClear()" style="margin: 0px">Clear All</md-button>
             </td></tr>
             
         </table>

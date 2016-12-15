@@ -21,6 +21,7 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.mSelectedSort = "bubble";
     $scope.mSortOptions = ["bubble", "selection", "merge", "quick", "bogo"];
+    $scope.mIsSorted = true;
     
     $scope.mListOptions = [1];
     $scope.mActiveList = 1;
@@ -73,6 +74,17 @@ myModule.controller("MainCtrl", function ($scope) {
         $scope.mMyWorld.draw($scope.mView);
         $scope.mMyWorld.draw($scope.smallView);
         $scope.handleManipulators(); // make sure it follows when using the sliders
+        
+        // Determine isSorted for button visibility
+        for(var i = 0; i < $scope.mMyWorld.mLists.length; i++)
+        {
+            if(!$scope.mMyWorld.mLists[i].mSorting)
+            {
+                $scope.mIsSorted = false;
+                return;
+            }
+        }
+        $scope.mIsSorted = true;
     };
 
     $scope.defineSquare = function (event) 
@@ -215,7 +227,8 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.serviceSortChange = function(toChangeTo)
     {
         $scope.mSelectedSort = toChangeTo;
-        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType = $scope.mSelectedSort;
+        if($scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType !== undefined)
+            $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].mSortType = $scope.mSelectedSort;
     };
     
     $scope.serviceListSelect = function(item)
@@ -292,7 +305,11 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.handleStop = function()
     {
-        $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
+        //$scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
+        for(var i = 0; i < $scope.mMyWorld.mLists.length; i++)
+        {
+            $scope.mMyWorld.mLists[i].stopSort();
+        }
     };
     
     $scope.handleClear = function ()
