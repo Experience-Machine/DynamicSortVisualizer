@@ -521,3 +521,18 @@ ListObject.prototype.getWidth = function()
         }
         return overallSize;
 };
+
+ListObject.prototype.getHeight = function()
+{
+    var numObjects = this.mChildren.length;
+    var maxHeight = 0;
+    var i;
+    for(i = 0; i < numObjects; i++)
+    {
+        if (this.mChildren[i].getXform().getHeight() > maxHeight)
+        {
+            maxHeight = this.mChildren[i].getXform().getHeight();
+        }
+    }
+    return maxHeight;
+}

@@ -138,6 +138,33 @@ ClassExample.prototype.getMaxWidth = function()
     return maxWidth;
 };
 
+ClassExample.prototype.getOverallHeight = function()
+{
+    var i = 0;
+    var totalHeight = 0;
+    for (i; i < this.mLists.length; i++)
+    {
+        totalHeight += this.mList[i].getHeight();
+    }
+    return totalHeight;
+}
+
+ClassExample.prototype.getCenterList = function()
+{
+    var i = 0;
+    var position = [0,0];
+    
+    for (i; i < this.mLists.length; i++)
+    {
+        position[0] += this.mLists[i].getXform().getXPos();
+        position[1] += this.mLists[i].getXform().getYPos();
+    }
+    position[0] /= this.mLists.length;
+    position[1] /= this.mLists.length;
+    console.log(position);
+    return position;
+}
+
 ClassExample.prototype.addList = function()
 {
     this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));

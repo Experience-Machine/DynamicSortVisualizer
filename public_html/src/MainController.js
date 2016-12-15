@@ -268,11 +268,13 @@ myModule.controller("MainCtrl", function ($scope) {
     
     $scope.setSmallViewPort = function ()
     {
-        if ($scope.mMyWorld.getMaxWidth() > 100)
-        {
-            $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
-        }
-
+            var position = $scope.mMyWorld.getCenterList();
+            if ($scope.mMyWorld.getMaxWidth() > 100)
+            {
+                $scope.smallView.setWCWidth($scope.mMyWorld.getMaxWidth());
+            }
+            
+            $scope.smallView.setWCCenter(position[0], position[1] - 30);
     };
     
     $scope.handleStop = function()
