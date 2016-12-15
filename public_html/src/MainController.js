@@ -282,12 +282,14 @@ myModule.controller("MainCtrl", function ($scope) {
             }
             
             $scope.smallView.setWCCenter(position[0], position[1] - 30);
+            
     };
     
     $scope.handleStop = function()
     {
         $scope.mMyWorld.mLists[$scope.mMyWorld.mActiveList].stopSort();
     };
+    
     
     $scope.changeSpeed = function()
     {

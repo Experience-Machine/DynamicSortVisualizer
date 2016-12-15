@@ -147,7 +147,7 @@ ClassExample.prototype.getOverallHeight = function()
         totalHeight += this.mLists[i].getHeight();
     }
     return totalHeight;
-}
+};
 
 ClassExample.prototype.getCenterList = function()
 {
@@ -209,4 +209,10 @@ ClassExample.prototype.changeSpeed = function(speed)
     {
         this.mLists[i].changeMovementSpeed(this.moveSpeed);
     }
+};
+
+ClassExample.prototype.clearAll = function ()
+{
+    this.mLists = [];
+    this.mLists.push(new ListObject(this.mConstColorShader, "newList", 0,0));
 };

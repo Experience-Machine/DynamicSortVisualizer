@@ -535,4 +535,4 @@ ListObject.prototype.getHeight = function()
         }
     }
     return maxHeight;
-}
+};
