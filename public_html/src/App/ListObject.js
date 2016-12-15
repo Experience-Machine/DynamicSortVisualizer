@@ -140,6 +140,8 @@ ListObject.prototype.initSort = function()
     if(this.mSortType === "selection")
     {
         this.mSortIndex = 0;
+        this.mMinPosition = 0;
+        this.mNextSortIndex = 0;
         this.mSorted = true;
     }
     
@@ -233,37 +235,41 @@ ListObject.prototype.selectionSortStep = function()
         return;
     }
     
-    var min = this.mChildren[this.mSortIndex].getXform().area(); // assume the first is the smallest
-   
-    var minPosition = 0; 
-   
-    var i;
-    
-    // go through the entire list to find the min
-    for (i = this.mSortIndex; i < this.mChildren.length; i++)
+    // If our next position is the end, sort this index
+    this.mNextSortIndex++;
+    if(this.mNextSortIndex === this.mChildren.length)
     {
-        // Highlight 'min'
-        this.mChildren[this.mSortIndex].highlight();
-        if (this.mChildren[i].getXform().area() < min){ // is it smaller than the current min
-            min = this.mChildren[i].getXform().area(); // set the new min
-            minPosition = i; // hold the position of the new min in the array
-        }
-    } // minPosition now holds the smallest
-
-    // time to swap
-    if (min !== this.mChildren[this.mSortIndex].getXform().area()){
         var left = this.mChildren[this.mSortIndex];
-        var right = this.mChildren[minPosition];
-    
+        var right = this.mChildren[this.mMinPosition];
+        
+        left.highlight();
+        right.highlight();
+        
         this.mChildren[this.mSortIndex] = right;
-        this.mChildren[minPosition] = left;
+        this.mChildren[this.mMinPosition] = left;
     
         this.mSorted = false;
         
         this.updateListPos();
+        
+        this.mSortIndex++;
+        this.mMinPosition = this.mSortIndex;
+        this.mNextSortIndex = this.mSortIndex;
+        return;
     }
     
-    this.mSortIndex++;
+    // Otherwise, look at left and right indicies
+    var left = this.mChildren[this.mMinPosition];
+    var right = this.mChildren[this.mNextSortIndex];
+    
+    left.highlight();
+    right.highlight();
+
+    // If our right index is better minimum, keep track
+    if (left.getXform().area() > right.getXform().area())
+    {   
+        this.mMinPosition = this.mNextSortIndex; // hold the position of the new min in the array
+    }
 };
 
 ListObject.prototype.selectionBogoStep = function()
