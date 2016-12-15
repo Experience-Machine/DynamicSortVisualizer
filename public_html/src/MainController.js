@@ -19,7 +19,7 @@ myModule.controller("MainCtrl", function ($scope) {
     // Initialize the graphics system
     gEngine.Core.initializeWebGL('GLCanvas');
     
-    $scope.mSelectedSort = "bubble";
+    $scope.mSelectedSort = "Bubble";
     $scope.mSortOptions = ["Bubble", "Selection", "Merge", "Quick", "Bogo"];
     $scope.mIsSorted = true;
     

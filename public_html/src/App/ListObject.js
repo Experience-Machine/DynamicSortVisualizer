@@ -20,7 +20,7 @@ function ListObject(shader, name, xPivot, yPivot)
     // selection = selection sort - https://en.wikipedia.org/wiki/Selection_sort
     // merge = 
     // bogo = https://en.wikipedia.org/wiki/Bogosort
-    this.mSortType = "bubble"; 
+    this.mSortType = "Bubble"; 
     
     this.mSortIndex = 0;
     this.mSorted = false;
@@ -139,13 +139,13 @@ ListObject.prototype.initSort = function()
 {
     //console.log("Init Sort");
     
-    if(this.mSortType === "bubble")
+    if(this.mSortType === "Bubble")
     {
         this.mSortIndex = 0;
         this.mSorted = true; // This is set to false on swap
     }
     
-    if(this.mSortType === "selection")
+    if(this.mSortType === "Selection")
     {
         this.mSortIndex = 0;
         this.mMinPosition = 0;
@@ -153,13 +153,13 @@ ListObject.prototype.initSort = function()
         this.mSorted = true;
     }
     
-    if(this.mSortType === "bogo")
+    if(this.mSortType === "Bogo")
     {
         this.mSortIndex = 0;
         this.mSorted = true;
     }
     
-    if(this.mSortType === "merge")
+    if(this.mSortType === "Merge")
     {
         this.mSortIndex = 0;
         this.levelsOfMerge = 0;
@@ -171,7 +171,7 @@ ListObject.prototype.initSort = function()
     }
     
     //Initial set up for quick sort, sets up the first partition to be sorted
-    if (this.mSortType === "quick")
+    if (this.mSortType === "Quick")
     {
         this.mSortedIndex = 0;
         this.mSorted = true;
@@ -189,24 +189,24 @@ ListObject.prototype.initSort = function()
 //  and the program is ready for the next sort step
 ListObject.prototype.sortStep = function()
 {
-    if(this.mSortType === "bubble")
+    if(this.mSortType === "Bubble")
     {
         this.bubbleSortStep();
     }
     
-    if(this.mSortType === "selection"){
+    if(this.mSortType === "Selection"){
         this.selectionSortStep();
     }
     
-    if(this.mSortType === "bogo"){
+    if(this.mSortType === "Bogo"){
         this.selectionBogoStep();
     }
     
-    if(this.mSortType === "merge"){
+    if(this.mSortType === "Merge"){
         this.selectionMergeStep();
     }
     
-    if(this.mSortType === "quick")
+    if(this.mSortType === "Quick")
     {
         this.quickSortStep();
     }
