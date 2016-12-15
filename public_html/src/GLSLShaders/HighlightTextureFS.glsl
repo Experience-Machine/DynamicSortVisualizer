@@ -28,7 +28,7 @@ void main()
     vec3 u_color = vec3(1.0, 1.0, 0.0);
 
     // Thickness of the outline
-    const float u_offset = 1.0;
+    const float u_offset = 1.5;
 
     // Step to check for neighbors
     const float u_step = 1.0;
