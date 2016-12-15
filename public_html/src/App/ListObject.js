@@ -469,11 +469,14 @@ ListObject.prototype.quickSortStep = function()
 
         if (this.mSortIndex < this.quickSortHigh)
         {
-
+            
             if (this.mChildren[this.mSortIndex].getXform().area() <= x)
             {
+                this.mChildren[this.mSortIndex].highlight();
+                this.mChildren[this.quickSortHigh].highlight();
                 
                 this.quickSortIndexLow++;
+                this.mChildren[this.quickSortIndexLow].highlight();
                 //Performs the swap
                 var temp = this.mChildren[this.quickSortIndexLow];
                 this.mChildren[this.quickSortIndexLow] = this.mChildren[this.mSortIndex];
@@ -484,6 +487,12 @@ ListObject.prototype.quickSortStep = function()
         }
         else
         {
+            if (this.quickSortIndexLow > 0)
+            {
+                this.mChildren[this.quickSortIndexLow].highlight();
+            }
+            
+            this.mChildren[this.quickSortHigh].highlight();
             //Performs the swap
             var temp = this.mChildren[this.quickSortIndexLow + 1];
             this.mChildren[this.quickSortIndexLow + 1] = this.mChildren[this.quickSortHigh];
