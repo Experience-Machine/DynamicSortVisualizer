@@ -70,7 +70,7 @@
     margin: 0;
     padding: 1em;">
         <table>
-            <tr><td>
+            <tr style="height: 50px;"><td>
                 <md-input-container>
                     <label>List</label>
                     <md-select ng-model="mActiveList">
@@ -100,9 +100,9 @@
             <tr><td>
             Sort Type
             </td></tr>
-            <tr><td>
+            <tr><td  style="padding-bottom: 11px;">
             <md-radio-group ng-model="mSelectedSort">
-                <md-radio-button ng-repeat="sortType in mSortOptions" ng-click="serviceSortChange(sortType)" value="{{sortType}}" class="md-primary">{{sortType}}</md-radio-button>
+                <md-radio-button ng-repeat="sortType in mSortOptions" ng-click="serviceSortChange(sortType)" value="{{sortType}}" style="outline: none; margin-bottom: 8px; margin-top: 0px;" class="md-primary">{{sortType}}</md-radio-button>
             </md-radio-group>
             </td></tr>
             <tr><td>
