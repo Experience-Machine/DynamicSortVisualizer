@@ -90,9 +90,10 @@ ListObject.prototype.update = function()
                         " Dest: " + cXform.getXDest() + ", " + cXform.getYDest());
                         */
             if(cXform.getXPos() !== cXform.getXDest() ||
-               cXform.getYPos() !== cXform.getYDest())
+               cXform.getYPos() !== cXform.getYDest()  || 
+               this.mChildren[i].highlighted)
             {
-                // Objects currently moving
+                // Objects currently moving or highlighted
                 //console.log("Moving..");
                 return;
             }
@@ -187,8 +188,6 @@ ListObject.prototype.sortStep = function()
 //  per sort step
 ListObject.prototype.bubbleSortStep = function()
 {
-    //console.log("Bubble Sort Step");
-    
     // If we're at the final list item..
     if(this.mSortIndex === this.mChildren.length - 1)
     {
@@ -207,6 +206,9 @@ ListObject.prototype.bubbleSortStep = function()
     
     var left = this.mChildren[this.mSortIndex];
     var right = this.mChildren[this.mSortIndex + 1];
+    
+    left.highlight();
+    right.highlight();
     
     if(left.getXform().area() > right.getXform().area())
     {
@@ -232,13 +234,16 @@ ListObject.prototype.selectionSortStep = function()
     }
     
     var min = this.mChildren[this.mSortIndex].getXform().area(); // assume the first is the smallest
-    
+   
     var minPosition = 0; 
    
     var i;
     
-    // got through the entire list to find the min
-    for (i = this.mSortIndex; i < this.mChildren.length; i++){
+    // go through the entire list to find the min
+    for (i = this.mSortIndex; i < this.mChildren.length; i++)
+    {
+        // Highlight 'min'
+        this.mChildren[this.mSortIndex].highlight();
         if (this.mChildren[i].getXform().area() < min){ // is it smaller than the current min
             min = this.mChildren[i].getXform().area(); // set the new min
             minPosition = i; // hold the position of the new min in the array
@@ -297,6 +302,9 @@ ListObject.prototype.selectionBogoStep = function()
     // swap
     var left = this.mChildren[randomFrom];
     var right = this.mChildren[randomTo];
+    
+    left.highlight();
+    right.highlight();
     
     this.mChildren[randomFrom] = right;
     this.mChildren[randomTo] = left;

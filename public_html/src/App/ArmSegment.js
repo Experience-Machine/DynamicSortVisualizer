@@ -18,6 +18,8 @@ function ArmSegment(shader, name, xPivot, yPivot, texture, highlightShader)
     
     this.texShader = shader;
     this.highShader = highlightShader;
+    this.highlighted = false;
+    this.curHighlightTime = 0;
     
     // now create the children shapes
     var obj = new SquareRenderable(this.texShader);
@@ -34,14 +36,30 @@ gEngine.Core.inheritPrototype(ArmSegment, SceneNode);
 ArmSegment.prototype.highlight = function () 
 {
     this.mSet[0].setShader(this.highShader);
+    this.highlighted = true;
 };
 
 ArmSegment.prototype.unhighlight = function () 
 {
     this.mSet[0].setShader(this.texShader);
+    this.highlighted = false;
 };
 
 ArmSegment.prototype.update = function () 
 {
     SceneNode.prototype.update.call(this);
+    
+    var xf = this.getXform();
+    
+    // If at position, and min time, remove highlight
+    if(xf.getXPos() === xf.getXDest() && xf.getYPos() === xf.getYDest()
+            && this.curHighlightTime > this.movementSpeed*16) // Highlight for 100 movement ticks
+    {
+        this.unhighlight();
+        this.curHighlightTime = 0;
+    }
+    else if(this.highlighted)
+    {
+        this.curHighlightTime += this.movementSpeed;
+    }
 };
