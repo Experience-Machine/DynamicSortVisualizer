@@ -315,6 +315,11 @@ myModule.controller("MainCtrl", function ($scope) {
     $scope.handleClear = function ()
     {
         $scope.mMyWorld.clearAll();
+        $scope.mActiveList = 1;
+        for (var i = 0; i < $scope.mListOptions.length + 1; i++)
+        {
+            $scope.mListOptions.pop();
+        }
     };
     
     $scope.changeSpeed = function()
